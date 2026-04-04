@@ -1,36 +1,143 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ProcureFlow
 
-## Getting Started
+ProcureFlow is a multi-tenant SaaS platform designed to manage procurement and shipment workflows in a centralized system.
 
-First, run the development server:
+It enables companies to streamline purchase orders, approvals, and shipment tracking while supporting multi-company (parent-child) structures.
+
+---
+
+## ✨ Features
+
+* Multi-tenant architecture (workspace-based)
+* Parent-child company hierarchy
+* Role-based access control (RBAC)
+* Purchase order management (Draft → Approved)
+* Shipment tracking (Pending → Delivered)
+* Supplier portal (limited access)
+* Usage-based billing (Free vs Pro plan)
+
+---
+
+## 🧱 Tech Stack
+
+* **Frontend**: Next.js (App Router), TypeScript
+* **UI**: Tailwind CSS, Shadcn UI
+* **Backend**: Supabase (Auth + Database)
+* **Deployment**: Vercel
+
+---
+
+## 🚀 Getting Started
+
+### 1. Clone repository
+
+```bash
+git clone <your-repo-url>
+cd procureflow
+```
+
+### 2. Install dependencies
+
+```bash
+npm install
+```
+
+### 3. Setup environment variables
+
+Create `.env.local`:
+
+```env
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_ANON_KEY=
+```
+
+### 4. Run development server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🗂️ Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+app/                → Next.js routes
+features/           → Business modules (PO, shipment, supplier)
+components/         → Shared UI components
+hooks/              → Global hooks
+lib/                → Utilities & helpers
+db/                 → Database schema & queries
+services/           → Business logic layer
+policies/           → RBAC rules
+config/             → Roles & permissions
+```
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 🔐 Core Concepts
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Multi-Tenant
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+* Each workspace represents one company
+* Data is isolated using `workspace_id`
 
-## Deploy on Vercel
+### Parent-Child Company
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+* Parent company can view all child companies
+* Child company can only access its own data
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Role-Based Access
+
+Roles:
+
+* Admin
+* Manager
+* Procurement
+* Logistics
+* Supplier
+* Viewer
+
+---
+
+## 🔄 Workflow
+
+1. Procurement creates Purchase Order (Draft)
+2. Submit PO
+3. Manager approves PO
+4. Shipment created
+5. Supplier sets In Transit
+6. Logistics marks Delivered
+
+---
+
+## 📜 Scripts
+
+```bash
+npm run dev      # Start development
+npm run build    # Build production
+npm run start    # Start production
+npm run lint     # Lint code
+```
+
+---
+
+## 📌 Notes
+
+* All business rules and AI context are defined in `.github/copilot-instructions.md`
+* Feature-level logic is defined in `.github/instructions/*`
+
+---
+
+## 📈 Roadmap
+
+* Notifications system
+* Multi-level approval
+* Third-party logistics integration
+* Payment integration
+
+---
+
+## 📄 License
+
+Private / Internal Project
